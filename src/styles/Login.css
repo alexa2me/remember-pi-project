@@ -1,0 +1,48 @@
+.main-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 100vh;
+}
+
+.input-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #DACAE8;
+    gap: 10px;
+}
+
+.logo {
+    height: 11em;
+    width: 17em;
+    margin-bottom: 58px;
+    filter: drop-shadow(0px 4px 4px #C4C4C4);
+}
+
+.login-page-title {
+    font-size: 32px;
+    margin-bottom: 58px;
+    text-shadow: 3px 3px 3px #9C9C9C;
+}
+
+.signup-question,
+.signup-link,
+.login-page-title {
+    color: #FFFFFF;
+}
+
+.signup-link,
+.recover-password {
+    text-decoration: underline;
+}
+
+.signup-link {
+    text-align: center;
+}
+
+.recover-password {
+    color: #558BF5;    
+}
+
+
