@@ -1,11 +1,11 @@
 import './styles/App.css';
 import { ChakraProvider } from '@chakra-ui/react'
-import Login from "./pages/login/Login"
+import Router from './routes/Router';
 
 const App = () => {
   return (
     <ChakraProvider>
-      <Login />
+        <Router />
     </ChakraProvider>
   );
 }
