@@ -6,8 +6,9 @@ const ButtonComponent = (props) => {
             backgroundColor='#3F73F9'
             borderRadius={25}
             color={'#FFFFFF'}
-            width={"28rem"}
             _hover={{ opacity: '50%' }}
+            disabled={props.disabled}
+            width={{ lg: '25vw', md: '50vw', sm: '60vw'}}
         >
             {props.text}
         </Button>

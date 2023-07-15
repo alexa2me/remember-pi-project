@@ -19,19 +19,19 @@ const InputComponent = (props) => {
             <InputGroup>
                 <InputLeftElement pointerEvents='none'>
                     {props.icon === 'email' ?
-                    <EmailIcon color="gray.400" /> :
+                    <EmailIcon color='gray.400' /> :
                     props.icon === 'password' ?
-                    <LockIcon color="gray.400"/> :
+                    <LockIcon color='gray.400'/> :
                     props.icon === 'profile' &&
-                    <Icon as={ CgProfile } color="gray.400"/>
+                    <Icon as={ CgProfile } color='gray.400'/>
                     }
                 </InputLeftElement>
                 <Input
                     type={props.type}
                     placeholder={props.placeholder}
-                    backgroundColor={"#ffffff"}
+                    backgroundColor={'#FFFFFF'}
                     borderRadius={25}
-                    width={"28rem"}
+                    width={{ lg: '25vw', md: '50vw', sm: '60vw' }}
                 />
             </InputGroup>
         </Stack>
