@@ -31,7 +31,8 @@ const InputComponent = (props) => {
                     placeholder={props.placeholder}
                     backgroundColor={'#FFFFFF'}
                     borderRadius={25}
-                    width={{ lg: '25vw', md: '50vw', sm: '60vw' }}
+                    width={{ base: '100%', lg: '30vw', md: '60vw', sm: '80vw' }}
+                    isRequired
                 />
             </InputGroup>
         </Stack>
