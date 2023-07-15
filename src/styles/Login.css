@@ -1,7 +1,10 @@
 .main-container {
     display: grid;
-    grid-template-columns: 50% 50%;
-    height: 100vh;
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 1000px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .input-form-container {
@@ -11,12 +14,11 @@
     align-items: center;
     background-color: #DACAE8;
     gap: 10px;
+    height: 100vh;
 }
 
 .logo {
-    height: 11em;
-    width: 17em;
-    margin-bottom: 58px;
+    margin-bottom: 10%;
     filter: drop-shadow(0px 4px 4px #C4C4C4);
 }
 
@@ -45,4 +47,11 @@
     color: #558BF5;    
 }
 
+.right-side-container {
+    justify-self: center;
+    align-self: center;
 
+    @media (max-width: 1000px) {
+        display: none;
+    }
+}
