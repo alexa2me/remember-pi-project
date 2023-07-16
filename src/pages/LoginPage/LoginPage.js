@@ -1,31 +1,21 @@
-import '../../styles/Login.css';
 import logo from '../../images/remember-icon.png';
 import decorativeImage from '../../images/decorative-image.jpg';
-import InputComponent from '../../components/InputComponent';
-import ButtonComponent from '../../components/ButtonComponent';
+import { goToSignUp } from '../../routes/coordinator';
+import { useNavigate } from 'react-router-dom';
+import LoginForm from './LoginForm'
+import { Link } from '@chakra-ui/layout';
+import useUnprotectedPage from '../../hooks/useUnprotectedPage'
 
-const Login = () => {
+const LoginPage = ({ setAccessButton }) => {
+    useUnprotectedPage();
+    const navigate = useNavigate();
+    
     return (
         <div className='main-container'>
             <div className='input-form-container'>
-                <img src={logo} alt="" className='Project logo'/>
+                <img src={logo} alt='' className='Project logo'/>
                 <p className='login-page-title'>LOGIN</p>
-                <InputComponent 
-                    placeholder='E-mail'
-                    icon='email'
-                    isRequired
-                />
-                <InputComponent
-                    placeholder='Senha'
-                    type='password'
-                    icon='password'
-                    isRequired
-                />
-                <ButtonComponent
-                    text='ENTRAR'
-                    width={{ lg: '25vw', md: '50vw', sm: '60vw' }}
-                    
-                />
+                <LoginForm setAccessButton={setAccessButton} />
                 <a href='link-here'>
                     <p className='recover-password'>
                         Esqueci minha senha
@@ -35,9 +25,9 @@ const Login = () => {
                     <p className='signup-question'>
                         Ainda não possui cadastro?
                     </p>
-                    <a href='link-here'> 
+                    <Link onClick={() => goToSignUp(navigate)}> 
                         <p className='signup-link'>Cadastre-se aqui</p>
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div className='right-side-container'>
@@ -51,4 +41,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default LoginPage;

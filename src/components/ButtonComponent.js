@@ -8,7 +8,9 @@ const ButtonComponent = (props) => {
             color={'#FFFFFF'}
             _hover={{ opacity: '50%' }}
             disabled={props.disabled}
-            width={{ lg: '25vw', md: '50vw', sm: '60vw'}}
+            width='100%'
+            type='submit'
+            isLoading={props.isLoading}
         >
             {props.text}
         </Button>
