@@ -17,6 +17,12 @@
     height: 100vh;
 }
 
+.input-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .logo {
     margin-bottom: 10%;
     filter: drop-shadow(0px 4px 4px #C4C4C4);
@@ -26,25 +32,6 @@
     font-size: 32px;
     margin-bottom: 58px;
     text-shadow: 3px 3px 3px #9C9C9C;
-}
-
-.signup-question,
-.signup-link,
-.login-page-title {
-    color: #FFFFFF;
-}
-
-.signup-link,
-.recover-password {
-    text-decoration: underline;
-}
-
-.signup-link {
-    text-align: center;
-}
-
-.recover-password {
-    color: #558BF5;    
 }
 
 .right-side-container {

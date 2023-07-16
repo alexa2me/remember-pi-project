@@ -1,0 +1,27 @@
+.signup-question,
+.signup-link,
+.login-page-title {
+    color: #FFFFFF;
+}
+
+.signup-link,
+.recover-password {
+    text-decoration: underline;
+}
+
+.signup-link {
+    text-align: center;
+}
+
+.recover-password {
+    color: #558BF5;    
+}
+
+.right-side-container {
+    justify-self: center;
+    align-self: center;
+
+    @media (max-width: 1000px) {
+        display: none;
+    }
+}
