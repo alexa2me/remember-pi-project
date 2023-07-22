@@ -47,7 +47,7 @@ class UserController {
             }
             catch (error) {
                 if (error instanceof Error) {
-                    res.status(400).send({ error: error.message });
+                    res.status(400).send({ message: error.message });
                 }
             }
             yield BaseDatabase_1.BaseDatabase.destroyConnection();

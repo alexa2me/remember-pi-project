@@ -43,18 +43,18 @@ class UserBusiness extends UserValidations_1.UserValidations {
     }
     login(user) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!user.email || !user.password) {
+                throw new CustomError_1.CustomError("Para prosseguir com o login informe o seu e-mail e senha", 400);
+            }
             const userFromDB = yield this.userDatabase.getUserByEmail(user.email);
             if (!userFromDB) {
-                throw new CustomError_1.CustomError("Email incorreto", 401);
+                throw new CustomError_1.CustomError("Usuário não encontrado", 401);
             }
             const hashCompare = this.hashManager.compare(user.password, userFromDB.getPassword());
             if (!hashCompare) {
                 throw new CustomError_1.CustomError("Senha incorreta", 401);
             }
             const accessToken = this.authenticator.generateToken(userFromDB.getId());
-            if (!hashCompare) {
-                throw new Error("Senha inválida");
-            }
             return accessToken;
         });
     }
