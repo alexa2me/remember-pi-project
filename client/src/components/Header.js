@@ -1,6 +1,6 @@
-import { goToLogin } from "../../routes/coordinator";
+import { goToLogin } from "../routes/coordinator";
 import { useNavigate } from 'react-router-dom';
-import logo from "../../images/remember-icon.png"
+import logo from "../images/remember-icon.png"
 import { Grid, GridItem, Text } from "@chakra-ui/react";
 
 const Header = () => {
