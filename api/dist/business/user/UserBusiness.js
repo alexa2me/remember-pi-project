@@ -45,11 +45,11 @@ class UserBusiness extends UserValidations_1.UserValidations {
         return __awaiter(this, void 0, void 0, function* () {
             const userFromDB = yield this.userDatabase.getUserByEmail(user.email);
             if (!userFromDB) {
-                throw new CustomError_1.CustomError("Credenciais inválidas", 401);
+                throw new CustomError_1.CustomError("Email incorreto", 401);
             }
             const hashCompare = this.hashManager.compare(user.password, userFromDB.getPassword());
             if (!hashCompare) {
-                throw new CustomError_1.CustomError("Credenciais inválidas", 401);
+                throw new CustomError_1.CustomError("Senha incorreta", 401);
             }
             const accessToken = this.authenticator.generateToken(userFromDB.getId());
             if (!hashCompare) {

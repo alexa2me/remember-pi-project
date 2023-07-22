@@ -44,9 +44,13 @@ export class UserBusiness extends UserValidations {
   }
 
   async login(user: LoginInputDTO) {
+    if (!user.email || !user.password) {
+      throw new CustomError("Para prosseguir com o login informe o seu e-mail e senha", 400);
+    }
+
     const userFromDB = await this.userDatabase.getUserByEmail(user.email);
     if (!userFromDB) {
-      throw new CustomError("Credenciais inválidas", 401);
+      throw new CustomError("Usuário não encontrado", 401);
     }
 
     const hashCompare = this.hashManager.compare(
@@ -55,14 +59,10 @@ export class UserBusiness extends UserValidations {
     );
 
     if (!hashCompare) {
-      throw new CustomError("Credenciais inválidas", 401);
+      throw new CustomError("Senha incorreta", 401);
     }
 
     const accessToken = this.authenticator.generateToken(userFromDB.getId());
-
-    if (!hashCompare) {
-      throw new Error("Senha inválida");
-    }
 
     return accessToken;
   }
