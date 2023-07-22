@@ -1,46 +1,96 @@
 import React, { useState } from 'react';
 import useForm from '../../hooks/useForm';
-import InputComponent from '../../components/InputComponent';
-import ButtonComponent from '../../components/ButtonComponent';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Layout.css'
+import '../../styles/auth-layout.css'
 import '../../styles/LoginPage.css'
+import { login } from '../../services/login'
+import {
+  InputGroup,
+  Input,
+  InputLeftElement,
+  Button,
+} from '@chakra-ui/react';
+import {
+  EmailIcon,
+  LockIcon,
+} from '@chakra-ui/icons';
+import { useToast } from '@chakra-ui/react'
+import { goToHome } from "../../routes/coordinator";
 
-const LoginForm = ({ setAccessButton }) => {
-  let navigate = useNavigate()
-  const [form, onChange, clear] = useForm({ email: ', password: ' });
+const LoginForm = () => {
+  const toast = useToast()
+  const navigate = useNavigate()
+  const [form, onChange, clear] = useForm({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmitForm = (e) => {
+  const onSubmitForm = async (e) => {
     e.preventDefault();
-    // login(form, clear, navigate, setAccessButton, setIsLoading);
+    const result = await login(form, navigate, setIsLoading);
+
+    if(result.status) {
+        localStorage.setItem("token", result.token);
+        goToHome(navigate);
+        clear();
+    } else {
+      toast({
+        description: result.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+        containerStyle: { maxWidth: "0.5" }
+      });
+    }
   };
 
   return (
     <form
       onSubmit={onSubmitForm}
       className='input-form'
+      noValidate
     >
-        <InputComponent 
-            placeholder='E-mail'
-            icon='email'
-            name={'email'}
-            value={form.email}
-            onChange={onChange}
-            type='email'
-        />
-        <InputComponent
-            placeholder='Senha'
-            type='password'
-            icon='password'
-            name={'email'}
-            value={form.password}
-            onChange={onChange}
-        />
-        <ButtonComponent
-            text='ENTRAR'
+        <InputGroup>
+            <InputLeftElement pointerEvents='none'>
+            <EmailIcon color='gray.400' />
+            </InputLeftElement>
+            <Input 
+                placeholder='E-mail'
+                name={'email'}
+                value={form.email}
+                onChange={onChange}
+                type='email'
+                backgroundColor={'#FFFFFF'}
+                borderRadius={25}
+                isRequired
+            />
+        </InputGroup> 
+        <InputGroup>
+            <InputLeftElement pointerEvents='none'>
+            <LockIcon color='gray.400' />
+            </InputLeftElement>
+            <Input
+                placeholder='Senha'
+                type='password'
+                name={'password'}
+                value={form.password}
+                onChange={onChange}
+                backgroundColor={'#FFFFFF'}
+                borderRadius={25}
+                isRequired
+            />
+        </InputGroup>
+        <Button
+            backgroundColor='#3F73F9'
+            borderRadius={25}
+            color={'#FFFFFF'}
+            _hover={{ opacity: '50%' }}
+            disabled={false}
+            width='100%'
+            type='submit'
             isLoading={isLoading ? true : false}
-        />
+        >
+          ENTRAR
+        </Button>
     </form>
   )
 };
