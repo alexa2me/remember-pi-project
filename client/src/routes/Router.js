@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
+import HomePage from '../pages/HomePage/HomePage';
 
 const Router = ({ accessButton, setAccessButton }) => {
   return (
@@ -29,12 +30,12 @@ const Router = ({ accessButton, setAccessButton }) => {
 
             <Route
                 path='/home'
-                // element={
-                //     <HomePage
-                //         accessButton={accessButton}
-                //         setAccessButton={setAccessButton}
-                //     />
-                // }
+                element={
+                    <HomePage
+                        accessButton={accessButton}
+                        setAccessButton={setAccessButton}
+                    />
+                }
             />
         </Routes>
     </BrowserRouter>
