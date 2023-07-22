@@ -1,6 +1,4 @@
-import React from 'react';
-import '../../styles/SignUpPage.css';
-import '../../styles/Layout.css'
+import '../../styles/auth-layout.css'
 import logo from '../../images/remember-icon.png';
 import decorativeImage from '../../images/decorative-image.jpg';
 import SignUpForm from './SignUpForm'

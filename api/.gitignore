@@ -6,5 +6,4 @@
 
 # misc
 .env
-# /dist
 *.rest

@@ -9,3 +9,7 @@ export const goToLogin = (navigate) => {
   export const goToHome = (navigate) => {
     navigate('/home');
   };
+
+  export const goToLastPage = (navigate) => {
+    navigate.goBack();
+  };
