@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header';
 import useProtectedPage from '../../hooks/useProtectedPage'
-import cat from '../../images/cat.gif';
+import Footer from '../../components/Footer';
+import "../../styles/HomePage.css"
 
 const HomePage = () => {
     useProtectedPage();
     
     return (
-        <div>
+        <div className='main'>
             <Header />
-            <img src={cat} style={{ margin: 'auto' }}/>
-            <h1 style={{ textAlign: 'center', fontSize: '50px' }}>HOME</h1>
+            <Footer />
         </div>
     )
 }
