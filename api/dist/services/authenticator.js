@@ -23,19 +23,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HashManager = void 0;
-const bcrypt = __importStar(require("bcryptjs"));
-class HashManager {
-    hash(text) {
-        const rounds = 12;
-        const salt = bcrypt.genSaltSync(rounds);
-        const result = bcrypt.hashSync(text, salt);
-        return result;
-    }
-    compare(text, hash) {
-        return bcrypt.compareSync(text, hash);
-    }
+exports.getTokenData = exports.generateToken = void 0;
+const jwt = __importStar(require("jsonwebtoken"));
+function generateToken(payload) {
+    return jwt.sign(payload, process.env.JWT_KEY, {
+        expiresIn: "1y",
+    });
 }
-exports.HashManager = HashManager;
-exports.default = new HashManager();
-//# sourceMappingURL=HashManager.js.map
+exports.generateToken = generateToken;
+function getTokenData(token) {
+    const result = jwt.verify(token, process.env.JWT_KEY);
+    return result;
+}
+exports.getTokenData = getTokenData;
+//# sourceMappingURL=authenticator.js.map
