@@ -61,7 +61,7 @@ const SignUpForm = () => {
         clear();
     } else {
           toast({
-            description: result.error,
+            description: result.message,
             status: "error",
             duration: 5000,
             isClosable: true,
