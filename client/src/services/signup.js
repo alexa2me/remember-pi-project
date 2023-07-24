@@ -4,7 +4,7 @@ import BASE_URL from "../constants/urls";
 export const signUp = async (body, setIsLoading) => {
   try {
     setIsLoading(true);
-    await axios.post(`${BASE_URL}/users/signup`, body);
+    await axios.post(`${BASE_URL}/signup`, body);
 
     return {
       status: true,
@@ -12,9 +12,9 @@ export const signUp = async (body, setIsLoading) => {
   } catch (err) {
     setIsLoading(false);
     console.log(err)
-    const { error } = err.response.data;
+    const { message } = err.response.data;
     return {
-      error,
+      message,
       status: false,
     };
   }
