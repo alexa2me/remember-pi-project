@@ -16,7 +16,7 @@ class PostController {
     constructor() {
         this.createPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const { post_title, post_content, post_url } = req.body;
+                const { post_title, post_content } = req.body;
                 const token = req.headers.authorization;
                 const verifiedToken = (0, authenticator_1.getTokenData)(token);
                 if (!verifiedToken) {
@@ -34,9 +34,6 @@ class PostController {
                     user_id: verifiedToken.id,
                 };
                 yield (0, postQueries_1.addPost)(newPost);
-                if (post_url && post_url.length > 0) {
-                    yield (0, postQueries_1.addPostImages)(newPost.id, post_url);
-                }
                 res.status(200).send({
                     message: "Post adicionado com sucesso!"
                 });
