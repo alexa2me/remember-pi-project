@@ -11,7 +11,6 @@ export const signUp = async (body, setIsLoading) => {
     };
   } catch (err) {
     setIsLoading(false);
-    console.log(err)
     const { message } = err.response.data;
     return {
       message,
