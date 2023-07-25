@@ -59,17 +59,30 @@ const HomePage = () => {
                 >
                     <Image src={history} alt='' />
                 </GridItem>
-                <GridItem
-                    rowStart={1}
-                    rowEnd={4}
-                    bg={"rgba(217, 217, 217, 0.36)"}
-                    borderRadius={20}
-                    display={"flex"}
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                >
-                    {addPost ? <AddPostForm /> : <EmptyHomepage />}
-                </GridItem>
+                {addPost ? (
+                     <GridItem
+                     rowStart={1}
+                     rowEnd={4}
+                     bg={"rgba(217, 217, 217, 0.36)"}
+                     borderRadius={20}
+                     width="100%"
+                 >
+                    <AddPostForm />
+                 </GridItem>
+                ) : (
+                     <GridItem
+                     rowStart={1}
+                     rowEnd={4}
+                     bg={"rgba(217, 217, 217, 0.36)"}
+                     borderRadius={20}
+                     width="100%"
+                     display={'flex'}
+                     justifyContent={'center'}
+                     alignItems={'center'}
+                 >
+                    <EmptyHomepage />
+                 </GridItem>
+                )}     
             </Grid>
             <Footer />
         </div>
