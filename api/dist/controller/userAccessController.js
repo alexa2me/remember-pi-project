@@ -47,7 +47,7 @@ class UserAccessController {
                     id: newUser.id
                 });
                 yield (0, userAccessQueries_1.signUp)(newUser);
-                res.status(200).send({ access_token: token });
+                res.status(200).send(token);
             }
             catch (err) {
                 res.status(400).send({
@@ -76,7 +76,7 @@ class UserAccessController {
                 const token = (0, authenticator_1.generateToken)({
                     id: user.id,
                 });
-                res.status(200).send({ access_token: token });
+                res.status(200).send({ token: token });
             }
             catch (err) {
                 res.status(400).send({
