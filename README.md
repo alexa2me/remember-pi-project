@@ -20,7 +20,7 @@ Será necessário instalação de módulos globais Node JS de acordo com as intr
 - #### Instalação no Windows
 
   Acesse o site [official Node.js website](https://nodejs.org/) e faça download do setup.
-Além disso, certifique-se que `git` esta disponível em PATH. (Você pode acha-lo aqui [here](https://git-scm.com/)).
+Além disso, certifique-se que `git` esta disponível em PATH. (Você pode acha-lo [aqui](https://git-scm.com/)).
 
 - #### Instalação no Ubuntu (Linux)
 
@@ -29,18 +29,18 @@ Além disso, certifique-se que `git` esta disponível em PATH. (Você pode acha-
       $ sudo apt install nodejs
       $ sudo apt install npm
 
-- #### Other Operating Systems
-  Você achar mais informações sobre a instalação aqui  [official Node.js website](https://nodejs.org/) e também aqui [official NPM website](https://npmjs.org/).
+- #### Outros sistemas operacionais
+  Você pode achar mais informações sobre a instalação aqui  [official Node.js website](https://nodejs.org/) e também aqui [official NPM website](https://npmjs.org/).
 
-Se a instalação for realizada corretamente, poderá usar os seguintes comandos abaixo: 
+Se a instalação for realizada com sucesso, poderá usar os seguintes comandos abaixo: 
 
     $ node --version
-    v8.11.3
+    v18.17.0
 
     $ npm --version
-    6.1.0
+    v9.6.7
 
-Se precisa instalar ou atualizar o gerenciador de pacotes `npm` você pode executar o seguinte comando:
+Se precisar instalar ou atualizar o gerenciador de pacotes `npm` você pode executar o seguinte comando:
 
     $ npm install npm -g
 
