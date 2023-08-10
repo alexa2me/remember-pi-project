@@ -8,10 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const authenticator_1 = require("../services/authenticator");
 const idGenerator_1 = require("../services/idGenerator");
 const postQueries_1 = require("../data/postQueries");
+const formatData_1 = __importDefault(require("../utils/formatData"));
 class PostController {
     constructor() {
         this.createPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -41,6 +45,32 @@ class PostController {
             catch (error) {
                 res.status(400).send({
                     error: error.message
+                });
+            }
+        });
+        this.getPosts = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const token = req.headers.authorization;
+                const verifiedToken = (0, authenticator_1.getTokenData)(token);
+                if (!verifiedToken) {
+                    res.statusCode = 401;
+                    throw new Error("Não autorizado");
+                }
+                const post = yield (0, postQueries_1.getPosts)(verifiedToken.id);
+                const postMap = post.map((item) => {
+                    return {
+                        id: item.id,
+                        postTitle: item.post_title,
+                        postContent: item.post_content,
+                        createdAt: (0, formatData_1.default)(item.created_at),
+                        userId: item.user_id,
+                    };
+                });
+                res.status(200).send({ posts: postMap });
+            }
+            catch (err) {
+                res.status(400).send({
+                    message: err.message,
                 });
             }
         });

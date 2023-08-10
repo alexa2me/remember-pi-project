@@ -26,5 +26,6 @@ routes.get("/", (_, res) => __awaiter(void 0, void 0, void 0, function* () {
 routes.post("/signup", userAccessController.signUp);
 routes.post("/login", userAccessController.login);
 routes.post("/post", postController.createPost);
+routes.get("/post/getAll", postController.getPosts);
 exports.default = routes;
 //# sourceMappingURL=routes.js.map

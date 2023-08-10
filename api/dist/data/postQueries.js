@@ -12,25 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addPostImages = exports.addPost = void 0;
+exports.getPosts = exports.addPost = void 0;
 const connection_1 = __importDefault(require("../data/connection"));
-const idGenerator_1 = require("../services/idGenerator");
 const addPost = (post) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connection_1.default)("posts").insert(post);
 });
 exports.addPost = addPost;
-const addPostImages = (postId, imageUrls) => __awaiter(void 0, void 0, void 0, function* () {
-    const imageInserts = imageUrls.map((url) => ({
-        id: (0, idGenerator_1.generateId)(),
-        url,
-    }));
-    yield (0, connection_1.default)("images_urls").insert(imageInserts);
-    const postsUrlsInserts = imageInserts.map((image) => ({
-        id: (0, idGenerator_1.generateId)(),
-        post_id: postId,
-        url_image_id: image.id,
-    }));
-    yield (0, connection_1.default)("posts_urls").insert(postsUrlsInserts);
+const getPosts = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield (0, connection_1.default)("posts")
+        .select("posts.id", "post_title", "post_content", "user_id", "created_at")
+        .where("user_id", `${id}`)
+        .orderBy("created_at");
+    return result;
 });
-exports.addPostImages = addPostImages;
+exports.getPosts = getPosts;
 //# sourceMappingURL=postQueries.js.map
