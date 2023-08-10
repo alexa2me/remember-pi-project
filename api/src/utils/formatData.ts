@@ -6,7 +6,7 @@ function addZero(value: number): string | number {
     }
   }
   
-  function dateWithoutTime(dateTime: string) {
+  function dateWithoutTime(dateTime: Date) {
     let date = new Date(dateTime);
     const formattedDate = `${addZero(date.getDate())}/${addZero(
       date.getMonth() + 1

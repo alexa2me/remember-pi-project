@@ -16,5 +16,6 @@ routes.get("/", async (_, res: Response) => {
 routes.post("/signup", userAccessController.signUp);
 routes.post("/login", userAccessController.login);
 routes.post("/post", postController.createPost);
+routes.get("/post/getAll", postController.getPosts);
 
 export default routes;

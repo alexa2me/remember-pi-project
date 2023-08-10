@@ -1,31 +1,24 @@
 import { post } from "post";
 import connection from "../data/connection";
-import { generateId } from "../services/idGenerator";
 
 export const addPost = async (post: post): Promise<void> => {
     await connection("posts").insert(post)
 }
 
-export const addPostImages = async (
-    postId: string,
-    imageUrls: string[]
-): Promise<void> => {
-    const imageInserts = imageUrls.map((url) => ({
-        id: generateId(),
-        url,
-    }));
+export const getPosts = async (id: string): Promise<any> => {
+  const result = await connection("posts")
+    .select(
+      "posts.id",
+      "post_title",
+      "post_content",
+      "user_id",
+      "created_at"
+    )
+    .where("user_id", `${id}`)
+    .orderBy("created_at");
 
-    await connection("images_urls").insert(imageInserts);
-
-    const postsUrlsInserts = imageInserts.map((image) => ({
-        id: generateId(),
-        post_id: postId,
-        url_image_id: image.id,
-    }))
-
-    await connection("posts_urls").insert(postsUrlsInserts);
+  return result;
 };
-
 
 
 
