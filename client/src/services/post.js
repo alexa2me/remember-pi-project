@@ -15,7 +15,6 @@ export const post = async (body, setIsLoading) => {
         }
        
     );
-    console.log(result)
     const { message } = result.data
     return {
         message,
