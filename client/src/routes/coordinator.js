@@ -14,6 +14,10 @@ export const goToLogin = (navigate) => {
     navigate('/home');
   };
 
+  export const goToProfile = (navigate) => {
+    navigate('/profile');
+  };
+
   export const goToLastPage = (navigate) => {
     navigate.goBack();
   };
