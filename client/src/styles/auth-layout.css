@@ -14,6 +14,7 @@
     align-items: center;
     background-color: #DACAE8;
     min-height: 100vh;
+    gap: 10px;
 }
 
 .input-form {
