@@ -13,16 +13,15 @@
     justify-content: center;
     align-items: center;
     background-color: #DACAE8;
-    gap: 10px;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .input-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 25px;
-    width: 100%;
+    padding: 0 25px 25px 25px;
+    max-width: 100%;
 
     @media (min-width: 800px) {
         width: 70%;
@@ -30,12 +29,14 @@
 }
 
 .logo {
-    margin-bottom: 10%;
+    margin-bottom: 8%;
     filter: drop-shadow(0px 4px 4px #C4C4C4);
+    max-width: 25%;
+    max-height: 25%;
 }
 
 .login-page-title {
-    font-size: 32px;
+    font-size: 2.2em;
     margin-bottom: 58px;
     text-shadow: 3px 3px 3px #9C9C9C;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
+import RecoverPasswordPage from '../pages/RecoverPasswordPage/RecoverPasswordPage';
 import HomePage from '../pages/HomePage/HomePage';
 
 const Router = ({ accessButton, setAccessButton }) => {
@@ -22,6 +23,16 @@ const Router = ({ accessButton, setAccessButton }) => {
                 path='/cadastro'
                 element={
                     <SignUpPage
+                        accessButton={accessButton}
+                        setAccessButton={setAccessButton}
+                    />
+                }
+            />
+
+            <Route
+                path='/recuperar-senha'
+                element={
+                    <RecoverPasswordPage
                         accessButton={accessButton}
                         setAccessButton={setAccessButton}
                     />

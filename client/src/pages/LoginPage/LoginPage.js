@@ -1,6 +1,6 @@
 import logo from '../../images/remember-icon.png';
 import decorativeImage from '../../images/decorative-image.jpg';
-import { goToSignUp } from '../../routes/coordinator';
+import { goToRecoverPassword, goToSignUp } from '../../routes/coordinator';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm'
 import { Link } from '@chakra-ui/layout';
@@ -16,16 +16,22 @@ const LoginPage = ({ setAccessButton }) => {
                 <img src={logo} alt='' className='Project logo'/>
                 <p className='login-page-title'>LOGIN</p>
                 <LoginForm setAccessButton={setAccessButton} />
-                <a href='link-here'>
-                    <p className='recover-password'>
-                        Esqueci minha senha
-                    </p>
-                </a>
+                <Link
+                    className='recover-password'
+                    onClick={() => goToRecoverPassword(navigate)}
+                    color="#558BF5"
+                    textDecoration='underline'
+                    mb='10px'
+                >
+                    Esqueci minha senha
+                </Link>
                 <div>
                     <p className='signup-question'>
                         Ainda não possui cadastro?
                     </p>
-                    <Link onClick={() => goToSignUp(navigate)}> 
+                    <Link
+                        onClick={() => goToSignUp(navigate)}
+                    > 
                         <p className='signup-link'>Cadastre-se aqui</p>
                     </Link>
                 </div>
