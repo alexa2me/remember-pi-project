@@ -4,6 +4,7 @@ import LoginPage from '../pages/LoginPage/LoginPage';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import RecoverPasswordPage from '../pages/RecoverPasswordPage/RecoverPasswordPage';
 import HomePage from '../pages/HomePage/HomePage';
+import ProfilePage from '../pages/ProfilePage/ProfilePage';
 
 const Router = ({ accessButton, setAccessButton }) => {
   return (
@@ -33,6 +34,16 @@ const Router = ({ accessButton, setAccessButton }) => {
                 path='/recuperar-senha'
                 element={
                     <RecoverPasswordPage
+                        accessButton={accessButton}
+                        setAccessButton={setAccessButton}
+                    />
+                }
+            />
+
+            <Route
+                path='/profile'
+                element={
+                    <ProfilePage
                         accessButton={accessButton}
                         setAccessButton={setAccessButton}
                     />
