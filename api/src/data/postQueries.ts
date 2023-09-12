@@ -20,6 +20,19 @@ export const getPosts = async (id: string): Promise<any> => {
   return result;
 };
 
+export const deletePost = async (id: string): Promise<any> => {
+  await connection("posts").where("id", id).delete();
+};
+
+export const updatePost = async (postId: string, newTitle: string, newContent: string): Promise<void> => {
+  await connection("posts")
+    .where("id", postId)
+    .update({
+      post_title: newTitle,
+      post_content: newContent
+    });
+};
+
 
 
 

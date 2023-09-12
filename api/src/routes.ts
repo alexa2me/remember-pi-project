@@ -17,5 +17,7 @@ routes.post("/signup", userAccessController.signUp);
 routes.post("/login", userAccessController.login);
 routes.post("/post", postController.createPost);
 routes.get("/post/getAll", postController.getPosts);
+routes.delete("/post/delete/:id", postController.deletePost);
+routes.put("/post/edit/:id", postController.editPost);
 
 export default routes;

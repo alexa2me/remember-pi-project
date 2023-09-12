@@ -27,6 +27,27 @@
           });
       }, []);
 
+      const handleDeleteClick = (id) => {
+        axios.delete(`${BASE_URL}/post/delete/${id}`,
+        {
+            headers: {
+                Authorization: token
+            }
+        })
+        .then((res) => {
+          console.log(res);
+          alert('excluido com sucesso');
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.error("Erro na resposta do servidor:", err.response.data);
+          } else if (err.request) {
+            console.error("Nenhuma resposta do servidor");
+          } else {
+            console.error("Erro na configuração da solicitação:", err.message);
+          }
+        });
+      };
 
       const postsComponent = data.posts?.map((post, index, array) => {
         return (
@@ -46,10 +67,14 @@
               justifyContent='space-between'
             >
               <GridItem>
-                <img src={editIcon} />
+              <button >
+                  <img src={editIcon} />
+              </button>
               </GridItem>
               <GridItem>
-                <img src={deleteIcon} />
+                <button onClick={() => handleDeleteClick(post.id)}>
+                  <img src={deleteIcon} />
+                </button>
               </GridItem>
             </Box>
           </Grid>
