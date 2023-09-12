@@ -25,7 +25,11 @@ routes.get("/", (_, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 routes.post("/signup", userAccessController.signUp);
 routes.post("/login", userAccessController.login);
+routes.delete("/user/delete/:id", userAccessController.deleteUser);
+routes.put("/user/edit/:id", userAccessController.editUser);
 routes.post("/post", postController.createPost);
 routes.get("/post/getAll", postController.getPosts);
+routes.delete("/post/delete/:id", postController.deletePost);
+routes.put("/post/edit/:id", postController.editPost);
 exports.default = routes;
 //# sourceMappingURL=routes.js.map

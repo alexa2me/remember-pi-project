@@ -74,6 +74,35 @@ class PostController {
                 });
             }
         });
+        this.editPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const { post_title, post_content } = req.body;
+            try {
+                yield (0, postQueries_1.updatePost)(id, post_title, post_content);
+                return res.status(200).json({ message: 'Atualizado com sucesso' });
+            }
+            catch (error) {
+                return res.status(400).json({ error: 'Erro ao atualizar' });
+            }
+        });
+        this.deletePost = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const token = req.headers.authorization;
+                const verifiedToken = (0, authenticator_1.getTokenData)(token);
+                if (!verifiedToken) {
+                    res.statusCode = 401;
+                    throw new Error("Não autorizado");
+                }
+                yield (0, postQueries_1.deletePost)(id);
+                return res.status(200).json({ message: 'Post removido com sucesso' });
+            }
+            catch (err) {
+                return res.status(400).send({
+                    message: err.message,
+                });
+            }
+        });
     }
 }
 exports.default = PostController;

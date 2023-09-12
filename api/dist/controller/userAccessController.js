@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("../data/connection"));
 const userAccessQueries_1 = require("../data/userAccessQueries");
 const authenticator_1 = require("../services/authenticator");
+const authenticator_2 = require("../services/authenticator");
 const hashManager_1 = require("../services/hashManager");
 const idGenerator_1 = require("../services/idGenerator");
 class UserAccessController {
@@ -81,6 +82,43 @@ class UserAccessController {
             catch (err) {
                 res.status(400).send({
                     message: err.message,
+                });
+            }
+        });
+        this.deleteUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const token = req.headers.authorization;
+                const verifiedToken = (0, authenticator_2.getTokenData)(token);
+                if (!verifiedToken) {
+                    res.statusCode = 401;
+                    throw new Error("Não autorizado");
+                }
+                yield (0, userAccessQueries_1.deleteUser)(id);
+                res.status(200).send({ messagem: 'Usuário deletado com sucesso!' });
+            }
+            catch (err) {
+                res.status(400).send({
+                    message: err.message,
+                });
+            }
+        });
+        this.editUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const { name, email, password } = req.body;
+                const token = req.headers.authorization;
+                const verifiedToken = (0, authenticator_2.getTokenData)(token);
+                if (!verifiedToken) {
+                    res.statusCode = 401;
+                    throw new Error("Não autorizado");
+                }
+                yield (0, userAccessQueries_1.updateUser)(id, name, email, password);
+                res.status(200).send({ messagem: 'Usuário editado com sucesso!' });
+            }
+            catch (error) {
+                res.status(400).send({
+                    message: error.message,
                 });
             }
         });

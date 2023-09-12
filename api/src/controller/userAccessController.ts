@@ -1,7 +1,8 @@
 import { Response, Request } from "express";
 import connection from "../data/connection";
-import { signUp, login } from "../data/userAccessQueries";
+import { signUp, login, deleteUser, updateUser } from "../data/userAccessQueries";
 import { generateToken } from "../services/authenticator";
+import { getTokenData } from "../services/authenticator";
 import { compareHash, generateHash } from "../services/hashManager";
 import { generateId } from "../services/idGenerator";
 import { user } from "../types/user";
@@ -87,6 +88,50 @@ export default class UserAccessController {
     } catch (err) {
       res.status(400).send({
         message: err.message,
+      });
+    }
+  };
+
+  deleteUser = async (req: Request, res: Response) =>{
+    try  {
+      const { id } = req.params;
+      const token = req.headers.authorization;
+      const verifiedToken = getTokenData(token);
+  
+      if (!verifiedToken) {
+        res.statusCode = 401;
+        throw new Error("Não autorizado");
+      }
+      
+      await deleteUser(id);
+
+      res.status(200).send({ messagem: 'Usuário deletado com sucesso!'});
+    } catch(err) {
+      res.status(400).send({
+        message: err.message,
+      });
+    }
+
+  };
+
+  editUser = async (req: Request, res: Response) =>{
+    try {
+      const {id} = req.params;
+      const {name, email, password} = req.body;
+      const token = req.headers.authorization;
+      const verifiedToken = getTokenData(token);
+
+      if (!verifiedToken) {
+        res.statusCode = 401;
+        throw new Error("Não autorizado");
+      }
+
+      await updateUser(id,name,email,password);
+
+      res.status(200).send({ messagem: 'Usuário editado com sucesso!'});
+    } catch (error) {
+      res.status(400).send({
+        message: error.message,
       });
     }
   };
