@@ -65,7 +65,7 @@ preencha os valores das variáveis de Ambiente
 Nosso protótipo nagevável foi criado no Figma, possui página de login, cadastro de conta, perfil do usuário, espaço para escrever e publicar postagens.
 
    [Acesse o protótipo aqui](https://www.figma.com/file/YF99x7YpqoQCKXBH4AOJW9/Cadastro?type=design&node-id=0%3A1&mode=design&t=rNh06K6YZtEQ4Yua-1/)
----
+
 
 ## Desenvolvedores
 
