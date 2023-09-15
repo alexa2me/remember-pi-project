@@ -1,10 +1,11 @@
 import { Response, Request } from "express";
 import connection from "../data/connection";
-import { signUp, login, deleteUser, updateUser } from "../data/userAccessQueries";
+import { signUp, login, deleteUser, updateUser, getUserById, resetSenha } from "../data/userAccessQueries";
 import { generateToken } from "../services/authenticator";
 import { getTokenData } from "../services/authenticator";
 import { compareHash, generateHash } from "../services/hashManager";
 import { generateId } from "../services/idGenerator";
+import mailTransporter from "../services/mailTransporter";
 import { user } from "../types/user";
 
 export default class UserAccessController {
@@ -135,4 +136,43 @@ export default class UserAccessController {
       });
     }
   };
+
+  resetPassword = async (req: Request, res: Response) => {
+    try {
+      const {id} = req.params;
+
+      const user = await getUserById(id);
+
+      if(!user){
+        res.statusCode = 400;
+        throw new Error("Usuario não encontrado!.");
+      }
+
+      const characters = "abcdefABCDEF12345!@#$%&*";
+      let newPassword = "";
+      for (let i = 0; i < 10; i++) {
+        const index = Math.floor(Math.random() * (characters.length - 1));
+        newPassword += characters[index];
+      }
+
+      const newHash = generateHash(newPassword);
+      await resetSenha(newHash, id);
+
+      const info = await mailTransporter.sendMail({
+        from: `<${process.env.NODEMAILER_USER}>`,
+        to: user.email,
+        subject: "Teste 1 de nodemailer",
+        text: `Sua nova senha é ${newPassword}`,
+        html: `<p>Sua nova senha é <strong>${newPassword}</strong></p>`,
+      });
+
+      console.log(info);
+      res.status(200).send({ messagem: 'Senha alterada com sucesso!'});
+    } catch (error) {
+      console.log(error.message);
+      res.status(400).send({
+        message: error.message,
+      });
+    }
+  }
 }

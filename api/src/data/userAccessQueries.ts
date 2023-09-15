@@ -27,3 +27,19 @@ export const updateUser = async (id: string, newName: string, newEmail: string, 
       password: generateHash(newPassword)
     });
 };
+
+export const getUserById = async (id: string): Promise<any> => {
+  const result = await connection("users")
+    .select("name", "email")
+    .where("id", id);
+
+  return result[0];
+};
+
+export const resetSenha = async (
+  newHash: string,
+  id: string
+): Promise<void> => {
+  await connection("users").update("password", newHash).where("id", id);
+};
+

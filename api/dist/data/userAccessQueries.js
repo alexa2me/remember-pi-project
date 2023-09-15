@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.deleteUser = exports.login = exports.signUp = void 0;
+exports.resetSenha = exports.getUserById = exports.updateUser = exports.deleteUser = exports.login = exports.signUp = void 0;
 const connection_1 = __importDefault(require("./connection"));
 const hashManager_1 = require("../services/hashManager");
 const signUp = (user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -40,4 +40,15 @@ const updateUser = (id, newName, newEmail, newPassword) => __awaiter(void 0, voi
     });
 });
 exports.updateUser = updateUser;
+const getUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield (0, connection_1.default)("users")
+        .select("name", "email")
+        .where("id", id);
+    return result[0];
+});
+exports.getUserById = getUserById;
+const resetSenha = (newHash, id) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, connection_1.default)("users").update("password", newHash).where("id", id);
+});
+exports.resetSenha = resetSenha;
 //# sourceMappingURL=userAccessQueries.js.map

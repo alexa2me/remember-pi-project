@@ -16,7 +16,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use(routes_1.default);
-app.listen(3306, () => {
-    console.log("Server is running at http://localhost:3306");
+app.listen(3304, () => {
+    console.log("Server is running at http://localhost:3304");
 });
 //# sourceMappingURL=index.js.map
