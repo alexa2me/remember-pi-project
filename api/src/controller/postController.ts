@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getTokenData } from "../services/authenticator";
 import { generateId } from "../services/idGenerator";
 import { post, postData } from "../types/post"
-import { addPost, getPosts, deletePost, updatePost } from "../data/postQueries"; 
+import { addPost, getPosts, deletePost, updatePost, deleteAllPostsByUserId } from "../data/postQueries"; 
 import formatData from "../utils/formatData";
 
 export default class PostController {
@@ -71,42 +71,6 @@ export default class PostController {
     }
   };
 
-  getPostById = async (req: Request, res: Response) => {
-    try {
-      const { id } = req.params;
-      const token = req.headers.authorization as string;
-      const verifiedToken = getTokenData(token);
-
-      if (!verifiedToken) {
-        res.statusCode = 401;
-        throw new Error("Não autorizado");
-      }
-
-      const post = await getPosts(verifiedToken.id);
-
-      const postMap = post.map((item: postData) => {
-        return {
-          id: item.id,
-          postTitle: item.post_title,
-          postContent: item.post_content,
-          createdAt: formatData(item.created_at),
-          userId: item.user_id,
-        };
-      });
-
-      const postById = postMap.filter((item: postData) => {
-        return item.id === id;
-      });
-
-      res.status(200).send({ posts: postById });
-    } catch (err: any) {
-      res.status(400).send({
-        message: err.message,
-      });
-    }
-  };
-  
-
   editPost = async (req: Request, res: Response) => {
     const { id } = req.params; 
     const { post_title, post_content } = req.body;
@@ -140,5 +104,25 @@ export default class PostController {
       });
     }
     
+  };
+
+  deleteAllPostsByUserId = async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization;
+      const verifiedToken = getTokenData(token);
+  
+      if (!verifiedToken) {
+        res.statusCode = 401;
+        throw new Error("Não autorizado");
+      }
+  
+      await deleteAllPostsByUserId(verifiedToken.id);
+  
+      return res.status(200);
+    } catch (err: any) {
+      return res.status(400).send({
+        message: err.message,
+      });
+    }
   };
 }

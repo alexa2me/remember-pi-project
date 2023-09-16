@@ -7,6 +7,8 @@ import { compareHash, generateHash } from "../services/hashManager";
 import { generateId } from "../services/idGenerator";
 import mailTransporter from "../services/mailTransporter";
 import { user } from "../types/user";
+import { validateEmail } from "../services/validateEmail";
+import { deleteAllPostsByUserId } from "../data/postQueries";
 
 export default class UserAccessController {
   signUp = async (req: Request, res: Response) => {
@@ -20,9 +22,7 @@ export default class UserAccessController {
         );
       }
 
-      if (!email.includes("@")) {
-        throw new Error("E-mail inválido");
-      }
+     validateEmail(email);
 
       if (password.length < 6) {
         throw new Error("A senha deve conter pelo menos 6 caracteres.");
@@ -93,9 +93,33 @@ export default class UserAccessController {
     }
   };
 
+  getUserById = async (req: Request, res: Response) => {
+    try {
+      const token = req.headers.authorization;
+      const verifiedToken = getTokenData(token);
+
+      if (!verifiedToken) {
+        res.statusCode = 401;
+        throw new Error("Não autorizado");
+      }
+
+      const user = await getUserById(verifiedToken.id);
+
+      const userData = {
+        name: user.name,
+        email: user.email,
+      };
+
+      res.status(200).send({ user: userData });
+    } catch (err) {
+      res.status(400).send({
+        message: err.message,
+      });
+    }
+  };
+
   deleteUser = async (req: Request, res: Response) =>{
     try  {
-      const { id } = req.params;
       const token = req.headers.authorization;
       const verifiedToken = getTokenData(token);
   
@@ -104,9 +128,10 @@ export default class UserAccessController {
         throw new Error("Não autorizado");
       }
       
-      await deleteUser(id);
+      await deleteAllPostsByUserId(verifiedToken.id);
+      await deleteUser(verifiedToken.id);
 
-      res.status(200).send({ messagem: 'Usuário deletado com sucesso!'});
+      res.status(200).send({ message: 'Usuário removido com sucesso!'});
     } catch(err) {
       res.status(400).send({
         message: err.message,
@@ -117,8 +142,7 @@ export default class UserAccessController {
 
   editUser = async (req: Request, res: Response) =>{
     try {
-      const {id} = req.params;
-      const {name, email, password} = req.body;
+      const {name, email} = req.body;
       const token = req.headers.authorization;
       const verifiedToken = getTokenData(token);
 
@@ -126,10 +150,12 @@ export default class UserAccessController {
         res.statusCode = 401;
         throw new Error("Não autorizado");
       }
+      
+      validateEmail(email);
 
-      await updateUser(id,name,email,password);
+      await updateUser(verifiedToken.id, name, email);
 
-      res.status(200).send({ messagem: 'Usuário editado com sucesso!'});
+      res.status(200).send({ message: 'Usuário editado com sucesso!'});
     } catch (error) {
       res.status(400).send({
         message: error.message,
