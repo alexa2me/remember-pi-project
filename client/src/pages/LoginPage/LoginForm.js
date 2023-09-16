@@ -15,7 +15,7 @@ import {
   LockIcon,
 } from '@chakra-ui/icons';
 import { useToast } from '@chakra-ui/react'
-import { goToHome } from "../../routes/coordinator";
+import { goToWritePage } from "../../routes/coordinator";
 
 const LoginForm = () => {
   const toast = useToast()
@@ -29,7 +29,7 @@ const LoginForm = () => {
 
     if(result.status) {
         localStorage.setItem("token", result.token);
-        goToHome(navigate);
+        goToWritePage(navigate);
         clear();
     } else {
       toast({

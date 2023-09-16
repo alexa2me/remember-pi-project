@@ -12,9 +12,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #DACAE8;
+    background-color: #734A91;
     min-height: 100vh;
     gap: 10px;
+    /* 734A91 */
 }
 
 .input-form {
