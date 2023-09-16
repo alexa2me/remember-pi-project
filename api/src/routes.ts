@@ -15,15 +15,16 @@ routes.get("/", async (_, res: Response) => {
 
 routes.post("/signup", userAccessController.signUp);
 routes.post("/login", userAccessController.login);
+routes.get("/user/getById", userAccessController.getUserById);
 routes.delete("/user/delete/:id", userAccessController.deleteUser);
-routes.put("/user/edit/:id", userAccessController.editUser);
+routes.put("/user/edit", userAccessController.editUser);
 routes.put("/user/updatePassword/:id", userAccessController.resetPassword);
 
 
 routes.post("/post", postController.createPost);
 routes.get("/post/getAll", postController.getPosts);
 routes.delete("/post/delete/:id", postController.deletePost);
-routes.get("/post/getById/:id", postController.getPostById);
 routes.put("/post/edit/:id", postController.editPost);
+routes.delete("/post/deleteAllPostsByUserId", postController.deleteAllPostsByUserId);
 
 export default routes;
