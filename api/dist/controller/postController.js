@@ -74,36 +74,6 @@ class PostController {
                 });
             }
         });
-        this.getPostById = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { id } = req.params;
-                const token = req.headers.authorization;
-                const verifiedToken = (0, authenticator_1.getTokenData)(token);
-                if (!verifiedToken) {
-                    res.statusCode = 401;
-                    throw new Error("Não autorizado");
-                }
-                const post = yield (0, postQueries_1.getPosts)(verifiedToken.id);
-                const postMap = post.map((item) => {
-                    return {
-                        id: item.id,
-                        postTitle: item.post_title,
-                        postContent: item.post_content,
-                        createdAt: (0, formatData_1.default)(item.created_at),
-                        userId: item.user_id,
-                    };
-                });
-                const postById = postMap.filter((item) => {
-                    return item.id === id;
-                });
-                res.status(200).send({ posts: postById });
-            }
-            catch (err) {
-                res.status(400).send({
-                    message: err.message,
-                });
-            }
-        });
         this.editPost = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const { post_title, post_content } = req.body;
@@ -126,6 +96,23 @@ class PostController {
                 }
                 yield (0, postQueries_1.deletePost)(id);
                 return res.status(200).json({ message: 'Post removido com sucesso' });
+            }
+            catch (err) {
+                return res.status(400).send({
+                    message: err.message,
+                });
+            }
+        });
+        this.deleteAllPostsByUserId = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const token = req.headers.authorization;
+                const verifiedToken = (0, authenticator_1.getTokenData)(token);
+                if (!verifiedToken) {
+                    res.statusCode = 401;
+                    throw new Error("Não autorizado");
+                }
+                yield (0, postQueries_1.deleteAllPostsByUserId)(verifiedToken.id);
+                return res.status(200);
             }
             catch (err) {
                 return res.status(400).send({
