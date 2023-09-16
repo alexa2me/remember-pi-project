@@ -18,6 +18,7 @@ const authenticator_1 = require("../services/authenticator");
 const authenticator_2 = require("../services/authenticator");
 const hashManager_1 = require("../services/hashManager");
 const idGenerator_1 = require("../services/idGenerator");
+const mailTransporter_1 = __importDefault(require("../services/mailTransporter"));
 class UserAccessController {
     constructor() {
         this.signUp = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -117,6 +118,39 @@ class UserAccessController {
                 res.status(200).send({ messagem: 'Usuário editado com sucesso!' });
             }
             catch (error) {
+                res.status(400).send({
+                    message: error.message,
+                });
+            }
+        });
+        this.resetPassword = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const user = yield (0, userAccessQueries_1.getUserById)(id);
+                if (!user) {
+                    res.statusCode = 400;
+                    throw new Error("Usuario não encontrado!.");
+                }
+                const characters = "abcdefABCDEF12345!@#$%&*";
+                let newPassword = "";
+                for (let i = 0; i < 10; i++) {
+                    const index = Math.floor(Math.random() * (characters.length - 1));
+                    newPassword += characters[index];
+                }
+                const newHash = (0, hashManager_1.generateHash)(newPassword);
+                yield (0, userAccessQueries_1.resetSenha)(newHash, id);
+                const info = yield mailTransporter_1.default.sendMail({
+                    from: `<${process.env.NODEMAILER_USER}>`,
+                    to: user.email,
+                    subject: "Teste 1 de nodemailer",
+                    text: `Sua nova senha é ${newPassword}`,
+                    html: `<p>Sua nova senha é <strong>${newPassword}</strong></p>`,
+                });
+                console.log(info);
+                res.status(200).send({ messagem: 'Senha alterada com sucesso!' });
+            }
+            catch (error) {
+                console.log(error.message);
                 res.status(400).send({
                     message: error.message,
                 });
