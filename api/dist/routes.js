@@ -30,6 +30,7 @@ routes.put("/user/edit/:id", userAccessController.editUser);
 routes.post("/post", postController.createPost);
 routes.get("/post/getAll", postController.getPosts);
 routes.delete("/post/delete/:id", postController.deletePost);
+routes.get("/post/getById/:id", postController.getPostById);
 routes.put("/post/edit/:id", postController.editPost);
 exports.default = routes;
 //# sourceMappingURL=routes.js.map
