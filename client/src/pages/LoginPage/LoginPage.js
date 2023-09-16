@@ -19,7 +19,7 @@ const LoginPage = ({ setAccessButton }) => {
                 <Link
                     className='recover-password'
                     onClick={() => goToRecoverPassword(navigate)}
-                    color="#558BF5"
+                    color="#FFFFFF"
                     textDecoration='underline'
                     mb='10px'
                 >

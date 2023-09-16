@@ -131,7 +131,7 @@ const SignUpForm = () => {
         <Text
             fontSize={14}
             width='100%'
-            color='#696969'
+            color='#FFFFFF'
             mb={5}
         >
             A senha deve conter 6 caracteres,
@@ -146,7 +146,7 @@ const SignUpForm = () => {
             <Text
                 fontSize={14}
                 width='100%'
-                color='#474A51'
+                color='#FFFFFF'
             >
                 Li e concordo com os Termos de Uso
                 e a Política de Privacidade

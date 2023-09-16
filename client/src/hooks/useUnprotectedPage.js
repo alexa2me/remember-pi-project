@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { goToHome } from '../routes/coordinator';
+import { goToWritePage } from '../routes/coordinator';
 
 const useUnprotectedPage = () => {
     const navigate = useNavigate();
@@ -8,7 +8,7 @@ const useUnprotectedPage = () => {
     useLayoutEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            goToHome(navigate);
+            goToWritePage(navigate);
         }
     }, [navigate]);
 };

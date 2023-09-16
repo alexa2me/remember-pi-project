@@ -3,8 +3,10 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import RecoverPasswordPage from '../pages/RecoverPasswordPage/RecoverPasswordPage';
-import HomePage from '../pages/HomePage/HomePage';
+import WritePage from '../pages/WritePage/WritePage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
+import PostList from '../pages/WritePage/PostsList';
+import MyPosts from '../pages/MyPosts/MyPosts';
 
 const Router = ({ accessButton, setAccessButton }) => {
   return (
@@ -41,7 +43,7 @@ const Router = ({ accessButton, setAccessButton }) => {
             />
 
             <Route
-                path='/profile'
+                path='/perfil'
                 element={
                     <ProfilePage
                         accessButton={accessButton}
@@ -51,9 +53,29 @@ const Router = ({ accessButton, setAccessButton }) => {
             />
 
             <Route
-                path='/home'
+                path='/escrever'
                 element={
-                    <HomePage
+                    <WritePage
+                        accessButton={accessButton}
+                        setAccessButton={setAccessButton}
+                    />
+                }
+            />
+
+            <Route
+                path='/historico'
+                element={
+                    <PostList
+                        accessButton={accessButton}
+                        setAccessButton={setAccessButton}
+                    />
+                }
+            />
+
+            <Route
+                path='/meus-posts'
+                element={
+                    <MyPosts
                         accessButton={accessButton}
                         setAccessButton={setAccessButton}
                     />

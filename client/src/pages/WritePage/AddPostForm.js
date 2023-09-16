@@ -44,8 +44,7 @@ const AddPostForm = () => {
     return (
         <form onSubmit={onSubmitForm}>
             <Grid
-                templateRows="1fr 6fr 0.5fr"
-                width="100%"
+                templateRows="1fr 10fr 0.5fr"
                 padding="10px 30px"
                 gap={3}
             >

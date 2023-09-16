@@ -10,12 +10,20 @@ export const goToLogin = (navigate) => {
     navigate('/recuperar-senha');
   };
 
-  export const goToHome = (navigate) => {
-    navigate('/home');
+  export const goToWritePage = (navigate) => {
+    navigate('/escrever');
   };
 
   export const goToProfile = (navigate) => {
-    navigate('/profile');
+    navigate('/perfil');
+  };
+
+  export const goToPostList = (navigate) => {
+    navigate('/historico');
+  };
+
+  export const goToMyPosts = (navigate) => {
+    navigate('/meus-posts');
   };
 
   export const goToLastPage = (navigate) => {
