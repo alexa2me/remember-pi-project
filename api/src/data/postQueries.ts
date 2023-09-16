@@ -20,20 +20,6 @@ export const getPosts = async (id: string): Promise<any> => {
   return result;
 };
 
-export const getPostById = async (id: string): Promise<any> => {
-  const result = await connection("posts")
-    .select(
-      "posts.id",
-      "post_title",
-      "post_content",
-      "user_id",
-      "created_at"
-    )
-    .where("posts.id", `${id}`);
-
-  return result;
-};
-
 export const deletePost = async (id: string): Promise<any> => {
   await connection("posts").where("id", id).delete();
 };
@@ -46,6 +32,10 @@ export const updatePost = async (postId: string, newTitle: string, newContent: s
     })
     .where("id", postId)
 };
+
+export const deleteAllPostsByUserId = async (id: string): Promise<void> => {
+  await connection("posts").where("user_id", id).delete();
+}
 
 
 
