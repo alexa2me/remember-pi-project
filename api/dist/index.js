@@ -1,14 +1,8 @@
 "use strict";
-// import { config } from "dotenv";
-// import App from "./app";
-// import userHandle from './routes/UserRouter';
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// config();
-// const expressApp: App = new App([userHandle]);
-// expressApp.init().listen();
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));

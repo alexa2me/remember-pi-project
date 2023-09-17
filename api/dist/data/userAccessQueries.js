@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resetSenha = exports.getUserById = exports.updateUser = exports.deleteUser = exports.login = exports.signUp = void 0;
 const connection_1 = __importDefault(require("./connection"));
-const hashManager_1 = require("../services/hashManager");
 const signUp = (user) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connection_1.default)("users").insert(user);
 });
@@ -30,13 +29,12 @@ const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connection_1.default)("users").where("id", id).delete();
 });
 exports.deleteUser = deleteUser;
-const updateUser = (id, newName, newEmail, newPassword) => __awaiter(void 0, void 0, void 0, function* () {
+const updateUser = (id, newName, newEmail) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connection_1.default)("users")
         .where("id", id)
         .update({
-        name: newName,
-        email: newEmail,
-        password: (0, hashManager_1.generateHash)(newPassword)
+        "name": newName,
+        "email": newEmail,
     });
 });
 exports.updateUser = updateUser;

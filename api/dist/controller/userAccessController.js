@@ -19,6 +19,8 @@ const authenticator_2 = require("../services/authenticator");
 const hashManager_1 = require("../services/hashManager");
 const idGenerator_1 = require("../services/idGenerator");
 const mailTransporter_1 = __importDefault(require("../services/mailTransporter"));
+const validateEmail_1 = require("../services/validateEmail");
+const postQueries_1 = require("../data/postQueries");
 class UserAccessController {
     constructor() {
         this.signUp = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -28,9 +30,7 @@ class UserAccessController {
                     res.statusCode = 422;
                     throw new Error("Preencha todos os campos.");
                 }
-                if (!email.includes("@")) {
-                    throw new Error("E-mail inválido");
-                }
+                (0, validateEmail_1.validateEmail)(email);
                 if (password.length < 6) {
                     throw new Error("A senha deve conter pelo menos 6 caracteres.");
                 }
@@ -86,17 +86,38 @@ class UserAccessController {
                 });
             }
         });
-        this.deleteUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.getUserById = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id } = req.params;
                 const token = req.headers.authorization;
                 const verifiedToken = (0, authenticator_2.getTokenData)(token);
                 if (!verifiedToken) {
                     res.statusCode = 401;
                     throw new Error("Não autorizado");
                 }
-                yield (0, userAccessQueries_1.deleteUser)(id);
-                res.status(200).send({ messagem: 'Usuário deletado com sucesso!' });
+                const user = yield (0, userAccessQueries_1.getUserById)(verifiedToken.id);
+                const userData = {
+                    name: user.name,
+                    email: user.email,
+                };
+                res.status(200).send({ user: userData });
+            }
+            catch (err) {
+                res.status(400).send({
+                    message: err.message,
+                });
+            }
+        });
+        this.deleteUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const token = req.headers.authorization;
+                const verifiedToken = (0, authenticator_2.getTokenData)(token);
+                if (!verifiedToken) {
+                    res.statusCode = 401;
+                    throw new Error("Não autorizado");
+                }
+                yield (0, postQueries_1.deleteAllPostsByUserId)(verifiedToken.id);
+                yield (0, userAccessQueries_1.deleteUser)(verifiedToken.id);
+                res.status(200).send({ message: 'Usuário removido com sucesso!' });
             }
             catch (err) {
                 res.status(400).send({
@@ -106,16 +127,16 @@ class UserAccessController {
         });
         this.editUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id } = req.params;
-                const { name, email, password } = req.body;
+                const { name, email } = req.body;
                 const token = req.headers.authorization;
                 const verifiedToken = (0, authenticator_2.getTokenData)(token);
                 if (!verifiedToken) {
                     res.statusCode = 401;
                     throw new Error("Não autorizado");
                 }
-                yield (0, userAccessQueries_1.updateUser)(id, name, email, password);
-                res.status(200).send({ messagem: 'Usuário editado com sucesso!' });
+                (0, validateEmail_1.validateEmail)(email);
+                yield (0, userAccessQueries_1.updateUser)(verifiedToken.id, name, email);
+                res.status(200).send({ message: 'Usuário editado com sucesso!' });
             }
             catch (error) {
                 res.status(400).send({

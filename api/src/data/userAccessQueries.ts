@@ -1,6 +1,5 @@
 import connection from "./connection";
 import { user } from "../types/user";
-import { generateHash } from "../services/hashManager";
 
 export const signUp = async (user: user): Promise<any> => {
   await connection("users").insert(user);
@@ -18,13 +17,12 @@ export const deleteUser = async (id: string): Promise<any> => {
   await connection("users").where("id", id).delete();
 };
 
-export const updateUser = async (id: string, newName: string, newEmail: string, newPassword: string): Promise<void> => {
+export const updateUser = async (id: string, newName: string, newEmail: string): Promise<void> => {
   await connection("users")
     .where("id", id)
     .update({
-      name: newName,
-      email: newEmail,
-      password: generateHash(newPassword)
+      "name": newName,
+      "email": newEmail,
     });
 };
 
@@ -36,10 +34,7 @@ export const getUserById = async (id: string): Promise<any> => {
   return result[0];
 };
 
-export const resetSenha = async (
-  newHash: string,
-  id: string
-): Promise<void> => {
+export const resetSenha = async (newHash: string, id: string): Promise<void> => {
   await connection("users").update("password", newHash).where("id", id);
 };
 

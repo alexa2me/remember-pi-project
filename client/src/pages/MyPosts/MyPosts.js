@@ -72,6 +72,8 @@ const MyPosts = () => {
     };
 
     const handleSaveEdit = async (e, id) => {
+      e.preventDefault();
+
       const result = await editPost(id, form, setIsLoading);
 
       if(result.status) {
