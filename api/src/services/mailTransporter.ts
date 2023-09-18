@@ -1,9 +1,9 @@
 import nodemailer from "nodemailer";
 
 const mailTransporter = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 587,
-    secure: false,
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.NODEMAILER_USER,
       pass: process.env.NODEMAILER_PASSWORD,

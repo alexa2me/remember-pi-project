@@ -1,5 +1,5 @@
-import { post } from "post";
 import connection from "../data/connection";
+import { post } from "post";
 
 export const addPost = async (post: post): Promise<void> => {
     await connection("posts").insert(post)

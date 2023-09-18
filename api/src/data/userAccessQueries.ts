@@ -17,7 +17,7 @@ export const deleteUser = async (id: string): Promise<any> => {
   await connection("users").where("id", id).delete();
 };
 
-export const updateUser = async (id: string, newName: string, newEmail: string): Promise<void> => {
+export const editUser = async (id: string, newName: string, newEmail: string): Promise<void> => {
   await connection("users")
     .where("id", id)
     .update({
@@ -34,7 +34,7 @@ export const getUserById = async (id: string): Promise<any> => {
   return result[0];
 };
 
-export const resetSenha = async (newHash: string, id: string): Promise<void> => {
-  await connection("users").update("password", newHash).where("id", id);
+export const resetPassword = async (newHash: string, email: string): Promise<void> => {
+  await connection("users").update("password", newHash).where("email", email);
 };
 

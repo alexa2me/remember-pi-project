@@ -7,17 +7,44 @@ import {
   Input,
   InputLeftElement,
   Button,
+  useToast
 } from '@chakra-ui/react';
 import {
   EmailIcon,
 } from '@chakra-ui/icons';
+import { resetPassword } from '../../services/user';
 
 const RecoverPasswordForm = () => {
+  const toast = useToast();
+
   const [form, onChange] = useForm({ email: '' });
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
+
+    const result = await resetPassword(form, setIsLoading);
+
+    if(result.status) {
+      setIsLoading(false);
+      toast({
+          description: result.message,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+          containerStyle: { maxWidth: "0.5" }
+      });
+    } else {
+        toast({
+            description: result.message,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+            containerStyle: { maxWidth: "0.5" }
+        });
+    }
   };
 
   return (
