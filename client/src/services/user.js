@@ -76,3 +76,27 @@ export const deleteUser = async (id, setIsLoading) => {
         };
     }
 };
+
+export const resetPassword = async (body, setIsLoading) => {
+    try {
+        setIsLoading(true);
+
+        const result = await axios.put(
+        `${BASE_URL}/user/updatePassword`, 
+        body
+        );
+        const { message } = result.data
+        return {
+            message,
+            status: true,
+        };
+    } catch (err) {
+        console.log(err)
+        setIsLoading(false);
+        const { message } = err.response.data
+        return {
+            message,
+            status: false,
+        };
+    }
+}
