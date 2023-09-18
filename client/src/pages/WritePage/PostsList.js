@@ -13,27 +13,32 @@ const PostList = () => {
     const [data, setData] = useState([]);
     const token = localStorage.getItem('token');
     const [isLoading, setIsLoading] = useState(true);
-
+    const [shouldFetchData, setShouldFetchData] = useState(true);
   
     useEffect(() => {
+      if (shouldFetchData) {
       axios.get(`${BASE_URL}/post/getAll`, {
           headers: {
               Authorization: token
           }
         })
         .then((res) => {
-          setIsLoading(false)
+          setIsLoading(false);
           setData(res.data);
+          setShouldFetchData(false);
         })
         .catch((err) => {
-          setIsLoading(false)
+          setIsLoading(false);
+          setShouldFetchData(false); 
         });
-    }, [data]);
+      }
+    }, [shouldFetchData, token]);
 
     const handleDeletePost = async (id) => {
       const result = await deletePost(id, setIsLoading);
       
       if(result.status) {
+        setShouldFetchData(true);
         setIsLoading(false)
         toast({
             description: result.message,
