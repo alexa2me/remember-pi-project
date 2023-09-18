@@ -15,7 +15,7 @@
 
 [Acesse a plataforma aqui](https://remember-pi-project-front.vercel.app/)
 
-Remember é uma aplicação full stack web desenvolvida como exigência do trabalho
+Remember é uma aplicação full stack web e mobile desenvolvida como exigência do trabalho
 de Projeto Integrador para a obtenção de nota parcial para o 5° semestre do curso de
 Tecnologia em Análise e Desenvolvimento de Sistemas.
 A aplicação consiste na ideia de fornecer uma plataforma para que as pessoas
@@ -32,7 +32,8 @@ dias diceis possam retornar à plataforma para relembrar os bons momentos.
 - Express 4
 - MySQL
 - Figma
-
+- TypeScript
+- Vite
 ---
 
 ## Para instalar o projeto
@@ -62,7 +63,7 @@ preencha os valores das variáveis de Ambiente
 
 ## Protótipo do projeto
 
-Nosso protótipo nagevável foi criado no Figma, possui página de login, cadastro de conta, perfil do usuário, espaço para escrever e publicar postagens.
+Nosso protótipo nagevável foi criado no Figma web e mobile, possui página de login, cadastro de conta, perfil do usuário, espaço para escrever e publicar textos, Lista de postagens, histórico de postagens.
 
    [Acesse o protótipo aqui](https://www.figma.com/file/YF99x7YpqoQCKXBH4AOJW9/Cadastro?type=design&node-id=0%3A1&mode=design&t=rNh06K6YZtEQ4Yua-1/)❤
 
