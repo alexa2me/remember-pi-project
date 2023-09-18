@@ -28,7 +28,7 @@ routes.post("/login", userAccessController.login);
 routes.get("/user/getById", userAccessController.getUserById);
 routes.delete("/user/delete/:id", userAccessController.deleteUser);
 routes.put("/user/edit", userAccessController.editUser);
-routes.put("/user/updatePassword/:id", userAccessController.resetPassword);
+routes.put("/user/updatePassword", userAccessController.resetPassword);
 routes.post("/post", postController.createPost);
 routes.get("/post/getAll", postController.getPosts);
 routes.delete("/post/delete/:id", postController.deletePost);

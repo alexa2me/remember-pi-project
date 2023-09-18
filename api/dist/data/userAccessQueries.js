@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetSenha = exports.getUserById = exports.updateUser = exports.deleteUser = exports.login = exports.signUp = void 0;
+exports.resetPassword = exports.getUserById = exports.editUser = exports.deleteUser = exports.login = exports.signUp = void 0;
 const connection_1 = __importDefault(require("./connection"));
 const signUp = (user) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connection_1.default)("users").insert(user);
@@ -29,7 +29,7 @@ const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connection_1.default)("users").where("id", id).delete();
 });
 exports.deleteUser = deleteUser;
-const updateUser = (id, newName, newEmail) => __awaiter(void 0, void 0, void 0, function* () {
+const editUser = (id, newName, newEmail) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connection_1.default)("users")
         .where("id", id)
         .update({
@@ -37,7 +37,7 @@ const updateUser = (id, newName, newEmail) => __awaiter(void 0, void 0, void 0, 
         "email": newEmail,
     });
 });
-exports.updateUser = updateUser;
+exports.editUser = editUser;
 const getUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield (0, connection_1.default)("users")
         .select("name", "email")
@@ -45,8 +45,8 @@ const getUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result[0];
 });
 exports.getUserById = getUserById;
-const resetSenha = (newHash, id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, connection_1.default)("users").update("password", newHash).where("id", id);
+const resetPassword = (newHash, email) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, connection_1.default)("users").update("password", newHash).where("email", email);
 });
-exports.resetSenha = resetSenha;
+exports.resetPassword = resetPassword;
 //# sourceMappingURL=userAccessQueries.js.map

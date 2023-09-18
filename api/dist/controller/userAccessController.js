@@ -107,6 +107,25 @@ class UserAccessController {
                 });
             }
         });
+        this.editUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { name, email } = req.body;
+                const token = req.headers.authorization;
+                const verifiedToken = (0, authenticator_2.getTokenData)(token);
+                if (!verifiedToken) {
+                    res.statusCode = 401;
+                    throw new Error("Não autorizado");
+                }
+                (0, validateEmail_1.validateEmail)(email);
+                yield (0, userAccessQueries_1.editUser)(verifiedToken.id, name, email);
+                res.status(200).send({ message: 'Usuário editado com sucesso!' });
+            }
+            catch (error) {
+                res.status(400).send({
+                    message: error.message,
+                });
+            }
+        });
         this.deleteUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
@@ -125,32 +144,13 @@ class UserAccessController {
                 });
             }
         });
-        this.editUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { name, email } = req.body;
-                const token = req.headers.authorization;
-                const verifiedToken = (0, authenticator_2.getTokenData)(token);
-                if (!verifiedToken) {
-                    res.statusCode = 401;
-                    throw new Error("Não autorizado");
-                }
-                (0, validateEmail_1.validateEmail)(email);
-                yield (0, userAccessQueries_1.updateUser)(verifiedToken.id, name, email);
-                res.status(200).send({ message: 'Usuário editado com sucesso!' });
-            }
-            catch (error) {
-                res.status(400).send({
-                    message: error.message,
-                });
-            }
-        });
         this.resetPassword = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id } = req.params;
-                const user = yield (0, userAccessQueries_1.getUserById)(id);
+                const email = req.body.email;
+                const user = yield (0, connection_1.default)("users").where({ "email": email });
                 if (!user) {
                     res.statusCode = 400;
-                    throw new Error("Usuario não encontrado!.");
+                    throw new Error("Usuario não encontrado!");
                 }
                 const characters = "abcdefABCDEF12345!@#$%&*";
                 let newPassword = "";
@@ -159,19 +159,58 @@ class UserAccessController {
                     newPassword += characters[index];
                 }
                 const newHash = (0, hashManager_1.generateHash)(newPassword);
-                yield (0, userAccessQueries_1.resetSenha)(newHash, id);
-                const info = yield mailTransporter_1.default.sendMail({
+                yield (0, userAccessQueries_1.resetPassword)(newHash, email);
+                yield mailTransporter_1.default.sendMail({
                     from: `<${process.env.NODEMAILER_USER}>`,
-                    to: user.email,
-                    subject: "Teste 1 de nodemailer",
+                    to: email,
+                    subject: "Sua nova senha Remember",
                     text: `Sua nova senha é ${newPassword}`,
-                    html: `<p>Sua nova senha é <strong>${newPassword}</strong></p>`,
+                    html: `<html>
+        <head>
+          <style>
+            body {
+              background-color: #734A91;
+              font-family: Arial, sans-serif;
+              text-align: center;
+              padding: 20px;
+              color: white;
+            }
+            .header {
+              font-size: 40px;
+              margin: 40px;
+              border-bottom: 1px solid white;
+              padding-bottom: 10px;
+            }
+            p {
+              font-size: 18px;
+              color: white;
+              text-align: left;
+            }
+            .main-text {
+              margin: 0 40px;
+            }
+            .footer {
+              font-size: 14px;
+              color: white;
+              margin-top: 40px;
+              text-align: center;
+              padding-top: 10px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">Remember</div>
+          <p class="main-text">Esta é a sua nova senha: <strong>${newPassword}</strong><br /><br />
+            Sabemos que é uma senha estranha e talvez difícil de memorizar e por enquanto
+            ainda não é possível alterá-la, mas estamos trabalhando nisso e em breve teremos novidades. <br />
+            Caso esqueça novamente, basta recuperá-la uma outra vez.<br /><br />Time Remember</p>
+          <p class="footer">Este é um e-mail automático, não responda.</p>
+        </body>
+      </html>`,
                 });
-                console.log(info);
                 res.status(200).send({ messagem: 'Senha alterada com sucesso!' });
             }
             catch (error) {
-                console.log(error.message);
                 res.status(400).send({
                     message: error.message,
                 });
