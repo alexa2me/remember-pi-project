@@ -240,7 +240,7 @@ export default class UserAccessController {
       </html>`,
       });
 
-      res.status(200).send({ messagem: 'Senha alterada com sucesso!'});
+      res.status(200).send({ message: 'Sua nova senha foi enviada para o seu e-mail.'});
     } catch (error) {
       res.status(400).send({
         message: error.message,
