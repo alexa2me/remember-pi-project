@@ -40,7 +40,7 @@ const Header = () => {
             templateColumns={['1fr 3fr', '1fr 5fr', '0.6fr 5fr 4fr']}
             gap={4}
             backgroundColor={"#734A91"}
-            padding={{ lg: '20px 100px', md: '20px 40px', sm: '20px 20px' }}
+            padding={{ lg: '15px 100px', md: '20px 40px', sm: '20px 20px' }}
             alignItems={"center"}
             fontFamily='roboto'
             mb={[5, 35]}
