@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Grid, Box, GridItem, Spinner, Input, Textarea } from '@chakra-ui/react';
+import React, { useEffect, useState, Fragment } from "react";
 import axios from "axios";
 import BASE_URL from "../../constants/urls";
 import deleteIcon from "../../images/delete-icon.jpg";
 import editIcon from "../../images/edit-icon.jpg";
+import save from "../../images/save-icon.png"
 import { deletePost, editPost } from "../../services/post"
-import { useToast } from '@chakra-ui/react'
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { Divider, Button } from "@chakra-ui/react";
+import {
+    Divider,
+    Button,
+    Text,
+    useToast,
+    Grid,
+    Box,
+    GridItem,
+    Spinner,
+    Input,
+    Textarea,
+    Image
+} from "@chakra-ui/react";
 
 const MyPosts = () => {
   const toast = useToast()
@@ -20,7 +31,6 @@ const MyPosts = () => {
       post_title: '',
       post_content: ''
     });
-    const [shouldRender, setShouldRender] = useState(true);
 
     useEffect(() => {
       axios.get(`${BASE_URL}/post/getAll`, {
@@ -35,7 +45,7 @@ const MyPosts = () => {
         .catch((err) => {
           setIsLoading(false)
         });
-    }, [shouldRender]);
+    }, []);
 
     const handleDeletePost = async (id) => {
       const result = await deletePost(id, setIsLoading);
@@ -67,22 +77,31 @@ const MyPosts = () => {
     }
     };
 
-    const handleEditPost = (id) => {     
+    const handleEditPost = (id) => {
+      const postToEdit = data.posts.find(post => post.id === id);
+      setForm({
+      post_title: postToEdit.postTitle,
+      post_content: postToEdit.postContent
+    });
       setEditingPostId(id);
     };
 
     const handleSaveEdit = async (e, id) => {
-      e.preventDefault();
-
       const result = await editPost(id, form, setIsLoading);
 
       if(result.status) {
-        setShouldRender(!shouldRender);
-        console.log(result)
-        setForm({
-          post_title: result.updated_post_title,
-          post_content: result.updated_post_content
-        });
+        setData((prevData) => ({
+          ...prevData,
+          posts: prevData.posts.map((post) =>
+            post.id === id
+              ? {
+                  ...post,
+                  postTitle: result.updated_post_title,
+                  postContent: result.updated_post_content
+                }
+              : post
+          )
+        }));
 
         setIsLoading(false)
         toast({
@@ -110,16 +129,21 @@ const MyPosts = () => {
       const isEditing = editingPostId === post.id;
   
       return (
-        <React.Fragment key={post.id}>
+        <Fragment key={post.id}>
           <Grid
             templateAreas={
               `"title icon"
               "content content"
               "date date"`
             }
-            gridTemplateRows={'0.5fr 1fr 0.3fr'}
-            gridTemplateColumns={'1fr 0.2fr'}
-            m={{ lg: '20px 100px', md:'20px 40px', sm: '20px 20px' }}
+            gridTemplateRows={'0.2fr 1fr 0.2fr'}
+            gridTemplateColumns={'1fr 0.7fr'}
+            m={{
+              base: '10px 20px',
+              lg: '10px 100px',
+              md:'10px 40px',
+              sm: '10px 30px'
+            }}
           >
             <GridItem mr={2} area={'title'}>
               {isEditing ? (
@@ -127,27 +151,43 @@ const MyPosts = () => {
                   type="text"
                   value={form.post_title}
                   onChange={(e) => setForm({ ...form, post_title: e.target.value })}
+                  fontWeight={'normal'}
                 />
               ) : (
-                post.postTitle
+                <Text as={'b'} fontSize={'lg'}>{post.postTitle}</Text>
               )}
             </GridItem>
-            <Box display='flex' justifyContent="end" alignItems={'center'} m={2} gap={4}>
+            <Box display='flex' justifyContent="end" alignItems={'center'} gap={[0, 2]}>
               <GridItem area={'icon'}>
               {isEditing ? (
-              <Button type="submit" onClick={(e) => handleSaveEdit(e, post.id)}>
-                  Save
+              <Button
+                type="submit"
+                onClick={(e) => handleSaveEdit(e, post.id)}
+                backgroundColor={'transparent'}
+              >
+                  <Image
+                        src={save}
+                        alt=''
+                        cursor="pointer"
+                        boxSize='25px'
+                    />
               </Button>
               ) : (
-                <Button onClick={() => handleEditPost(post.id)}>
-                  <img src={editIcon} alt="Edit" />
+                <Button
+                  onClick={() => handleEditPost(post.id)}
+                  backgroundColor={'transparent'}
+                >
+                  <Image src={editIcon} alt="Edit" />
                 </Button>
               )}
               </GridItem>
               <GridItem area={'icon'}>
-                <button onClick={() => handleDeletePost(post.id)}>
-                  <img src={deleteIcon} alt="Delete" />
-                </button>
+                <Button
+                  onClick={() => handleDeletePost(post.id)}
+                  backgroundColor={'transparent'}
+                >
+                  <Image src={deleteIcon} alt="Delete" />
+                </Button>
               </GridItem>
             </Box>
             <GridItem area={'content'}>
@@ -160,10 +200,10 @@ const MyPosts = () => {
                 post.postContent
               )}
             </GridItem>
-            <GridItem area={'date'}>{post.createdAt}</GridItem>
+            <GridItem area={'date'} fontSize='sm'>{post.createdAt}</GridItem>
           </Grid>
           <Divider />
-        </React.Fragment>
+        </Fragment>
       );
     });
   
@@ -196,9 +236,4 @@ const MyPosts = () => {
   }
   
   export default MyPosts;
-  
-  
-  
-  
-  
   

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm'
 import { Link } from '@chakra-ui/layout';
 import useUnprotectedPage from '../../hooks/useUnprotectedPage'
+import { Image } from '@chakra-ui/react';
 
 const LoginPage = ({ setAccessButton }) => {
     useUnprotectedPage();
@@ -13,7 +14,12 @@ const LoginPage = ({ setAccessButton }) => {
     return (
         <div className='main-container'>
             <div className='input-form-container'>
-                <img src={logo} alt='' className='Project logo'/>
+                <Image
+                    src={logo}
+                    alt='logo'
+                    width={['150px', '250px']}
+                    mb='40px'
+                />
                 <p className='login-page-title'>LOGIN</p>
                 <LoginForm setAccessButton={setAccessButton} />
                 <Link

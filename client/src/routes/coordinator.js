@@ -27,5 +27,5 @@ export const goToLogin = (navigate) => {
   };
 
   export const goToLastPage = (navigate) => {
-    navigate.goBack();
+    navigate(-1);
   };

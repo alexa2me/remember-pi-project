@@ -4,12 +4,12 @@ import axios from "axios";
 import BASE_URL from "../../constants/urls";
 import deleteIcon from "../../images/delete-icon.jpg";
 import { deletePost } from "../../services/post"
-import { useToast } from '@chakra-ui/react'
+import { useToast, Button, Image } from '@chakra-ui/react'
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 const PostList = () => {
-    const toast = useToast()
+    const toast = useToast(), boxSize='25px'
     const [data, setData] = useState([]);
     const token = localStorage.getItem('token');
     const [isLoading, setIsLoading] = useState(true);
@@ -63,14 +63,19 @@ const PostList = () => {
     const postsComponent = data.posts?.map((post, index, array) => {
       return (
         <Grid
-          templateColumns='20fr 0.5fr'
-          padding="8px 0px"
-          mr={5}
+          templateColumns={['20fr 3fr', '20fr 0.8fr']}
+          m={{
+            base: '10px 20px',
+            lg: '10px 100px',
+            md:'10px 40px',
+            sm: '10px 30px'
+          }}
           borderBottom={index !== array.length - 1 ? '1px solid lightgray' : 'none'}
+          key={post.id}
         >
           <Box display='flex' alignItems='center'>
               <GridItem mr={2}>{index + 1}. {post.postTitle}</GridItem>
-              <GridItem fontSize='small'>{post.createdAt}</GridItem>
+              <GridItem fontSize='xs'>{post.createdAt}</GridItem>
           </Box>
           <Box
             display='flex'
@@ -78,9 +83,12 @@ const PostList = () => {
             justifyContent='space-between'
           >
             <GridItem>
-              <button onClick={() => handleDeletePost(post.id)}>
-                <img src={deleteIcon} />
-              </button>
+              <Button
+                onClick={() => handleDeletePost(post.id)}
+                backgroundColor={'transparent'}
+              >
+                <Image src={deleteIcon} />
+              </Button>
             </GridItem>
           </Box>
         </Grid>
@@ -95,8 +103,7 @@ const PostList = () => {
             overflowY='auto'
             position='relative'
           >
-            {
-              isLoading ? (
+            {isLoading ? (
                 <Box
                   position='absolute'
                   top='50%'
@@ -110,8 +117,7 @@ const PostList = () => {
                 </Box>
               ) : (
                 postsComponent
-              )
-            }
+              )}
           </Box>
           <Footer />
       </div>

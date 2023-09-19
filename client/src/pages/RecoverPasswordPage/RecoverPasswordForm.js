@@ -7,7 +7,8 @@ import {
   Input,
   InputLeftElement,
   Button,
-  useToast
+  useToast,
+  Box,
 } from '@chakra-ui/react';
 import {
   EmailIcon,
@@ -47,6 +48,7 @@ const RecoverPasswordForm = () => {
     }
   };
 
+
   return (
     <form
       onSubmit={onSubmitForm}
@@ -74,7 +76,6 @@ const RecoverPasswordForm = () => {
             color={'#FFFFFF'}
             _hover={{ opacity: '50%' }}
             disabled={false}
-            width='100%'
             type='submit'
             isLoading={isLoading ? true : false}
         >
