@@ -4,7 +4,7 @@ import axios from "axios";
 import BASE_URL from "../../constants/urls";
 import deleteIcon from "../../images/delete-icon.jpg";
 import { deletePost } from "../../services/post"
-import { useToast, Button, Image } from '@chakra-ui/react'
+import { useToast, Button, Image, Text } from '@chakra-ui/react'
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -95,6 +95,19 @@ const PostList = () => {
       );
     });
 
+    const noListItemsComponent = (
+      <Box
+        display='flex'
+        flexDirection='column'
+        alignItems='center'
+        justifyContent='center'
+        textAlign='center'
+        minHeight='50vh'
+      >
+        <Text fontSize={'2xl'}>Comece a escrever para ver a sua lista de posts aqui! 😉</Text>
+      </Box>
+    );
+
     return (
       <div className="main">
           <Header />
@@ -115,8 +128,10 @@ const PostList = () => {
                       color='blue.500'
                   />
                 </Box>
-              ) : (
+               ) : data.posts && data.posts.length > 0 ? (
                 postsComponent
+              ) : (
+                noListItemsComponent
               )}
           </Box>
           <Footer />

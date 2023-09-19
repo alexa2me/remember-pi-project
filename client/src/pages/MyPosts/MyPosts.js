@@ -206,6 +206,19 @@ const MyPosts = () => {
         </Fragment>
       );
     });
+
+    const noPostsComponent = (
+      <Box
+        display='flex'
+        flexDirection='column'
+        alignItems='center'
+        justifyContent='center'
+        textAlign='center'
+        minHeight='50vh'
+      >
+        <Text fontSize={'2xl'}>Comece a escrever para ver seus posts aqui! 😉</Text>
+      </Box>
+    );
   
     return (
       <div className="main">
@@ -226,8 +239,10 @@ const MyPosts = () => {
                 color='blue.500'
               />
             </Box>
-          ) : (
+           ) : data.posts && data.posts.length > 0 ? (
             postsComponent
+          ) : (
+            noPostsComponent
           )}
         </Box>
         <Footer />
