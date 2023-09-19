@@ -44,9 +44,10 @@ const AddPostForm = () => {
     return (
         <form onSubmit={onSubmitForm}>
             <Grid
-                templateRows="1fr 10fr 0.5fr"
+                templateRows="1fr 12fr 0.5fr"
                 padding="10px 30px"
                 gap={3}
+                m={{ lg: '10px 100px', md:'10px 40px', sm: '10px 20px' }}
             >
                 <Input
                     placeholder='TÍTULO'
@@ -67,12 +68,14 @@ const AddPostForm = () => {
                     name="post_content"
                     value={form.post_content}
                     onChange={onChange}
+                    height={'100%'}
                 />
                 <Button
+                    backgroundColor={'transparent'}
+                   
                     justifySelf={'center'}
                     type='submit'
                     isLoading={isLoading ? true : false}
-                    _hover="none"
                 >
                     <Image
                         src={save}

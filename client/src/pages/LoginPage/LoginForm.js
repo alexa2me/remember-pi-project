@@ -9,6 +9,8 @@ import {
   Input,
   InputLeftElement,
   Button,
+  Box,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import {
   EmailIcon,
@@ -43,11 +45,21 @@ const LoginForm = () => {
     }
   };
 
+  const mobileWidth = useBreakpointValue({ base: '100%', md: '70%' });
+
   return (
+    <Box
+    display="flex"
+    flexDirection="column"
+    alignItems="center"
+    justifyContent="center"
+    width="100%"
+  >
     <form
       onSubmit={onSubmitForm}
       className='input-form'
       noValidate
+      style={{ width: mobileWidth }}
     >
         <InputGroup>
             <InputLeftElement pointerEvents='none'>
@@ -61,6 +73,7 @@ const LoginForm = () => {
                 type='email'
                 backgroundColor={'#FFFFFF'}
                 borderRadius={25}
+                width={'100%'}
                 isRequired
             />
         </InputGroup> 
@@ -92,6 +105,7 @@ const LoginForm = () => {
           ENTRAR
         </Button>
     </form>
+    </Box>
   )
 };
 

@@ -10,7 +10,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Icon
+  Icon,
 } from '@chakra-ui/react'
 import {
   EmailIcon,

@@ -5,7 +5,7 @@ const Footer = () => {
     <Text
         color={"#FFFFFF"}
         textShadow={"3px 3px 3px #9C9C9C"}
-        fontSize='20px'
+        fontSize='md'
         backgroundColor={"#734A91"}
         padding="30px"
         alignItems={"center"}
