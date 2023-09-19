@@ -65,10 +65,7 @@ preencha os valores das variáveis de Ambiente
 
 Nosso protótipo nagevável foi criado no Figma web e mobile, possui página de login, cadastro de conta, perfil do usuário, espaço para escrever e publicar textos, Lista de postagens, histórico de postagens.
 
-   [Acesse o protótipo web aqui](https://www.figma.com/file/YF99x7YpqoQCKXBH4AOJW9/Fluxo-web-remember?type=design&node-id=55%3A178&mode=design&t=xxobOA6xh6IzMNCn-1) ❤
-
-  [Acesse o protótipo mobile aqui](https://www.figma.com/proto/1HSaufxFaEo8fTW4HDzHMe/atividade-teste-software?type=design&node-id=209-109&t=O85HvKvdAQ76Q5Hi-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=209%3A38&mode=design) ❤
-
+   [Acesse o protótipo web e mobile aqui](https://urx1.com/vxBRi) ❤
 
 ## Desenvolvedores
 
