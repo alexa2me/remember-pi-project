@@ -7,7 +7,7 @@ https://remember-pi-project-front.vercel.app/
 
 Remember é uma aplicação full stack web e mobile desenvolvido como exigência do trabalho de Projeto Integrador  para a obtenção de nota parcial para o 5° semestre do curso de Tecnologia em Análise e Desenvolvimento de Sistemas
 
-A aplicação consiste baseado na ideia de fornecer uma plataforma para que as pessoas possam armazenar suas memórias e lembranças mais preciosas/valiosas em um só lugar e em dias difíceis possam retornar à plataforma para relembrar os bons momentos.
+A aplicação consiste na ideia de fornecer uma plataforma para que as pessoas possam armazenar suas memórias e lembranças mais preciosas/valiosas em um só lugar e em dias difíceis possam retornar à plataforma para relembrar os bons momentos.
 
 ## Layout web
 ![Tela-login](https://github.com/bruno-jssousa/assets/blob/main/Login-remember.png?raw=true)
